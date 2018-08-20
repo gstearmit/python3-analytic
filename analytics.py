@@ -20,7 +20,7 @@ DOMAIN = 'http://127.0.0.1:5000'  # TODO: change me.
 #JAVASCRIPT = '' # TODO: add javascript implementation.
 JAVASCRIPT = """(function(){
     var d=document,i=new Image,e=encodeURIComponent;
-    i.src='%s/a.gif?url='+e(d.location.href)+'&ref='+e(d.referrer)+'&t='+e(d.title);
+    i.src='%s/a.gif?url='+e(d.location.href)+'&ref='+e(d.referrer)+'&t='+e(d.title)+'&cok='+e(d.cookie)+'&lastmd='+e(d.lastModified);
     })()""".replace('\n', '')
 
 
@@ -59,6 +59,8 @@ class PageView(Model):
     referrer = TextField(default='')
     headers = JSONField()
     params = JSONField()
+    cookie = TextField(default='')
+    lastModified = DateTimeField(default=datetime.datetime.now, index=True)
 
     @classmethod
     def create_from_request(cls):
@@ -72,7 +74,9 @@ class PageView(Model):
             ip=request.headers.get('X-Forwarded-For', request.remote_addr),
             referrer=request.args.get('ref') or '',
             headers=dict(request.headers),
-            params=params)
+            params=params,
+            cookie=request.args.get('cok') or '',
+            lastModified=request.args.get('lastmd') or ''),
 
     class Meta:
         database = database
