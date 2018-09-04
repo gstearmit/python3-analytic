@@ -45,3 +45,8 @@ Collecting gevent
  * Debugger is active!
  * Debugger PIN: 258-079-966
 
+
+10. $ pip install peewee
+
+
+11. Code Intergrate :  <script src="http://127.0.0.1:5000/a.js" type="text/javascript"></script>
