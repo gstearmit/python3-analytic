@@ -2,7 +2,9 @@ from base64 import b64decode
 import datetime
 import json
 import os
-from urllib.parse   import parse_qsl, urlparse
+#import urllib.parse
+
+from urlparse   import parse_qsl, urlparse
 
 from flask import Flask, Response, abort, request
 from peewee import *
